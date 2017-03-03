@@ -9,7 +9,6 @@ import rx.Subscription
 
 fun main(args: Array<String>) {
     val store: Store = Store()
-    println(store.state) // print init state
     val subscription: Subscription = store.observe().subscribe(::println)
     store.dispatch(addTodo("Learn about actions"))
     store.dispatch(addTodo("Learn about reducers"))

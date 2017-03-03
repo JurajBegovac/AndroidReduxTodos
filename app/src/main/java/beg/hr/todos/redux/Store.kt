@@ -32,14 +32,15 @@ data class Todo(val text: String, val completed: Boolean)
  * of many stores.
  */
 
-class Store(var state: State = State.INITIAL_STATE) {
+class Store(initState: State = State.INITIAL_STATE) {
 
-    val stateObservable: BehaviorSubject<State> = BehaviorSubject.create()
+    val stateObservable: BehaviorSubject<State> = BehaviorSubject.create(initState)
 
     fun dispatch(action: Action) {
-        state = todoApp(state, action)
-        stateObservable.onNext(state)
+        stateObservable.onNext(todoApp(getState(), action))
     }
 
     fun observe(): Observable<State> = stateObservable.asObservable()
+
+    fun getState(): State = stateObservable.value
 }
