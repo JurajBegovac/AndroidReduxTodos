@@ -17,4 +17,7 @@ fun main(args: Array<String>) {
     store.dispatch(toggleTodo(1))
     store.dispatch(setVisibilityFilter(SHOW_COMPLETED))
     subscription.unsubscribe()
+    store.dispatch(addTodo("Test 1"))
+    store.dispatch(addTodo("Test 2"))
+    println(store.getState())
 }
