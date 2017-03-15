@@ -1,5 +1,6 @@
 package beg.hr.todos.redux
 
+
 /**
  * Created by juraj on 03/03/2017.
  */
@@ -26,13 +27,18 @@ enum class VisibilityFilter {
     SHOW_ALL, SHOW_COMPLETED, SHOW_ACTIVE
 }
 
+data class AddPayload(val id: Int, val text: String)
+
+var nextTodoId = 0
+
 /**
  * Action creators
  *
  * Action creators can also be asynchronous and have side-effects
  */
-fun addTodo(text: String): Action = Action(ActionTypes.ADD_TODO, text)
+// todo handle id - add todo just needs to have text and not payload
+fun addTodo(text: String): Action = Action(ActionTypes.ADD_TODO, AddPayload(nextTodoId++, text))
 
-fun toggleTodo(index: Int): Action = Action(ActionTypes.TOGGLE_TODO, index)
+fun toggleTodo(id: Int): Action = Action(ActionTypes.TOGGLE_TODO, id)
 
 fun setVisibilityFilter(filter: VisibilityFilter): Action = Action(ActionTypes.SET_VISIBILITY_FILTER, filter)

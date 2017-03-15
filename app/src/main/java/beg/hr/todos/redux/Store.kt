@@ -15,7 +15,7 @@ data class State(val visibilityFilter: VisibilityFilter, val todos: List<Todo>) 
     }
 }
 
-data class Todo(val text: String, val completed: Boolean)
+data class Todo(val id: Int, val text: String, val completed: Boolean)
 
 // ============ STORE ============
 /**
@@ -34,7 +34,7 @@ data class Todo(val text: String, val completed: Boolean)
 
 class Store(initState: State = State.INITIAL_STATE) {
 
-    val stateObservable: BehaviorSubject<State> = BehaviorSubject.create(initState)
+    private val stateObservable: BehaviorSubject<State> = BehaviorSubject.create(initState)
 
     fun dispatch(action: Action) {
         stateObservable.onNext(todoApp(getState(), action))

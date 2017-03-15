@@ -17,19 +17,17 @@ import beg.hr.todos.redux.VisibilityFilter.SHOW_ALL
 fun todoApp(state: State = State.INITIAL_STATE, action: Action): State =
         State(visibilityFilter(state.visibilityFilter, action), todos(state.todos, action))
 
-
 fun todos(state: List<Todo> = emptyList(), action: Action): List<Todo> {
     when (action.type) {
         ActionTypes.ADD_TODO -> {
-            val text = action.payload as String
-            return state.plusElement(Todo(text, false))
+            val payload = action.payload as AddPayload
+            return state.plusElement(Todo(payload.id, payload.text, false))
         }
         ActionTypes.TOGGLE_TODO -> {
-            val todoIndex = action.payload as Int
+            val todoId = action.payload as Int
             return state
-                    .mapIndexed {
-                        i, todo ->
-                        if (i == todoIndex) todo.copy(completed = !todo.completed)
+                    .map { todo ->
+                        if (todo.id == todoId) todo.copy(completed = !todo.completed)
                         else todo
                     }
         }
